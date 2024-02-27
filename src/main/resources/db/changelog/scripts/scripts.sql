@@ -4,7 +4,7 @@
 
 CREATE TABLE clients (
   id BIGSERIAL PRIMARY KEY,
-  name VARCHAR(80)
+  name VARCHAR(80) NOT NULL CHECK (name !~ '^\s*$')
 );
 
 CREATE TABLE contacts (
@@ -12,5 +12,6 @@ CREATE TABLE contacts (
   type VARCHAR(20),
   value VARCHAR(80),
   client_id BIGSERIAL NOT NULL,
-  FOREIGN KEY (client_id) REFERENCES clients(id)
+  FOREIGN KEY (client_id) REFERENCES clients(id),
+  CONSTRAINT idx_unique_contact_per_client_value UNIQUE (client_id, value)
 );

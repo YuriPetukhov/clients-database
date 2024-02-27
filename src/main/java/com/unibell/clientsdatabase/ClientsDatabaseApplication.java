@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition
 public class ClientsDatabaseApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ClientsDatabaseApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ClientsDatabaseApplication.class, args);
+    }
 
 }

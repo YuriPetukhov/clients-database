@@ -18,12 +18,12 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping(value = "/contacts")
+@RequestMapping(value = "/clients")
 @Tag(name = "Contacts")
 public class ContactController {
     private final ContactService contactService;
 
-    @PostMapping("/add-contact/{clientId}")
+    @PostMapping("/{clientId}/contact")
     @Operation(summary = "Add a new contact")
     public ResponseEntity<Void> addContactToClient(
             @PathVariable Long clientId,
@@ -36,17 +36,18 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @GetMapping("{clientId}/all")
+    @GetMapping("{clientId}/contact")
     @Operation(summary = "Get client's contacts")
     public ResponseEntity<List<ClientContact>> getClientContacts(
             @PathVariable Long clientId) {
         return ResponseEntity.ok(contactService.getClientContacts(clientId));
     }
-    @GetMapping("{clientId}/type")
+
+    @GetMapping("{clientId}/contacts")
     @Operation(summary = "Get client's contacts by type")
-    public ResponseEntity<List<ClientContactByType>> getClientContacts(
+    public ResponseEntity<List<ClientContactByType>> getClientContactsByType(
             @PathVariable Long clientId,
-            @RequestParam ContactType type) {
+            @RequestParam("type") ContactType type) {
         return ResponseEntity.ok(contactService.getClientContacts(clientId, type));
     }
 }

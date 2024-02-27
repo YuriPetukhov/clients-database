@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
+
     @Override
     public void addNewClient(ClientDTO dto) {
         log.info("new client {}", dto.getName());
@@ -31,7 +32,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientInfo getClientInfo(Long id) {
         Optional<Client> clientOpt = clientRepository.findById(id);
-        if(clientOpt.isPresent()) {
+        if (clientOpt.isPresent()) {
             return clientMapper.toDtoClientInfo(clientOpt.get());
         } else {
             throw new ClientNotFoundException("Client not found with id: " + id);

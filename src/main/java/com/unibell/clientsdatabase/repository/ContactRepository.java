@@ -10,6 +10,4 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
     List<Contact> findAllByClientId(Long clientId);
 
     List<Contact> findAllByClientIdAndType(Long clientId, ContactType type);
-
-    Contact findByClientIdAndTypeAndValue(Long clientId, ContactType type, String value);
 }

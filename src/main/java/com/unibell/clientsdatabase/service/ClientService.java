@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClientService {
-    void addNewClient (ClientDTO dto);
+    void addNewClient(ClientDTO dto);
+
     ClientInfo getClientInfo(Long id);
+
     List<ClientInfo> getClients(Integer pageNumber, Integer pageSize);
 
     Optional<Client> findClientById(Long clientId);

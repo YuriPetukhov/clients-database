@@ -4,6 +4,7 @@ import com.unibell.clientsdatabase.dto.ClientDTO;
 import com.unibell.clientsdatabase.dto.ClientInfo;
 import com.unibell.clientsdatabase.entity.Client;
 import org.mapstruct.Mapper;
+
 @Mapper(componentModel = "spring")
 public interface ClientMapper {
 

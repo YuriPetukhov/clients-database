@@ -6,14 +6,10 @@ import com.unibell.clientsdatabase.entity.Client;
 import com.unibell.clientsdatabase.entity.Contact;
 import com.unibell.clientsdatabase.enums.ContactType;
 import com.unibell.clientsdatabase.exception.ClientNotFoundException;
-import com.unibell.clientsdatabase.exception.DuplicateContactException;
-import com.unibell.clientsdatabase.exception.InvalidContactException;
 import com.unibell.clientsdatabase.mapper.ContactMapper;
 import com.unibell.clientsdatabase.repository.ContactRepository;
 import com.unibell.clientsdatabase.service.ClientService;
 import com.unibell.clientsdatabase.service.ContactService;
-import com.unibell.clientsdatabase.validation.ContactUniqueValidator;
-import com.unibell.clientsdatabase.validation.ContactInputValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,22 +25,13 @@ public class ContactServiceImpl implements ContactService {
     private final ContactRepository contactRepository;
     private final ClientService clientService;
     private final ContactMapper contactMapper;
-    private final ContactInputValidator contactInputValidator;
-    private final ContactUniqueValidator contactUniqueValidator;
+
     @Override
     public void addNewContact(Long clientId, ContactType type, String value) {
         Optional<Client> clientOpt = clientService.findClientById(clientId);
 
         if (clientOpt.isEmpty()) {
             throw new ClientNotFoundException("Client not found with id: " + clientId);
-        }
-
-        if (!contactUniqueValidator.isContactUniqueForClient(clientId, type, value)) {
-            throw new DuplicateContactException("Contact already exists for this client");
-        }
-
-        if (!contactInputValidator.validate(type, value)) {
-            throw new InvalidContactException("Invalid contact type or value: " + type + ", " + value);
         }
 
         Contact newContact = new Contact();
@@ -58,7 +45,7 @@ public class ContactServiceImpl implements ContactService {
     public List<ClientContact> getClientContacts(Long clientId) {
         List<Contact> contacts = contactRepository.findAllByClientId(clientId);
         return contacts.stream()
-                .map(contactMapper :: toDtoClientContact)
+                .map(contactMapper::toDtoClientContact)
                 .collect(Collectors.toList());
     }
 
@@ -66,7 +53,7 @@ public class ContactServiceImpl implements ContactService {
     public List<ClientContactByType> getClientContacts(Long clientId, ContactType type) {
         List<Contact> contacts = contactRepository.findAllByClientIdAndType(clientId, type);
         return contacts.stream()
-                .map(contactMapper :: toDtoClientContactByType)
+                .map(contactMapper::toDtoClientContactByType)
                 .collect(Collectors.toList());
     }
 }

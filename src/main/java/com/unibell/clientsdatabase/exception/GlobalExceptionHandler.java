@@ -1,6 +1,8 @@
 package com.unibell.clientsdatabase.exception;
 
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,14 +17,21 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @ExceptionHandler(InvalidContactException.class)
-    public ResponseEntity<String> handleInvalidContactException(InvalidContactException ex) {
+    @ExceptionHandler(PSQLException.class)
+    public ResponseEntity<String> handlePSQLException(PSQLException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
-    @ExceptionHandler(DuplicateContactException.class)
-    public ResponseEntity<String> handleDuplicateContactException(DuplicateContactException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException ex) {
+        log.error("Constraint violations occurred: {}", ex.getMessage());
+        StringBuilder errorMessage = new StringBuilder("Validation failed:");
+        ex.getConstraintViolations().forEach(violation ->
+                errorMessage.append(" ")
+                        .append(violation.getMessage())
+                        .append(";")
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorMessage.toString());
     }
 
 }

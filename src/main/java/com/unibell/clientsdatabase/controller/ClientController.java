@@ -28,12 +28,13 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("{clientId}/info")
+    @GetMapping("{clientId}")
     @Operation(summary = "Get client's info")
     public ResponseEntity<ClientInfo> getClientInfo(@PathVariable Long clientId) {
         return ResponseEntity.ok(clientService.getClientInfo(clientId));
     }
-    @GetMapping("/all")
+
+    @GetMapping
     @Operation(summary = "Get all clients")
     public ResponseEntity<List<ClientInfo>> getClients(
             @RequestParam(value = "page") Integer pageNumber,

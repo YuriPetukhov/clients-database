@@ -4,7 +4,6 @@ import com.unibell.clientsdatabase.dto.ClientContact;
 import com.unibell.clientsdatabase.dto.ClientContactByType;
 import com.unibell.clientsdatabase.entity.Client;
 import com.unibell.clientsdatabase.entity.Contact;
-import com.unibell.clientsdatabase.enums.ContactType;
 import com.unibell.clientsdatabase.exception.ClientNotFoundException;
 import com.unibell.clientsdatabase.mapper.ContactMapper;
 import com.unibell.clientsdatabase.repository.ContactRepository;
@@ -67,7 +66,7 @@ class ContactServiceImplTest {
         when(clientService.findClientById(client.getId())).thenReturn(Optional.of(client));
 
         assertDoesNotThrow(() -> contactService.addNewContact(
-                client.getId(), email.getType(), email.getValue()));
+                client.getId(), email.getType(), email.getTypeValue()));
     }
 
     @Test
@@ -76,7 +75,7 @@ class ContactServiceImplTest {
         when(clientService.findClientById(client.getId())).thenReturn(Optional.empty());
 
         assertThrows(ClientNotFoundException.class, () -> contactService.addNewContact(
-                client.getId(), phone.getType(), phone.getValue()));
+                client.getId(), phone.getType(), phone.getTypeValue()));
     }
 
     @Test

@@ -40,7 +40,7 @@ public class TestData {
         Contact contact = new Contact();
         Faker faker = new Faker();
         contact.setType(ContactType.EMAIL);
-        contact.setValue(faker.phoneNumber().phoneNumber());
+        contact.setTypeValue(faker.phoneNumber().phoneNumber());
         contact.setId(faker.number().randomNumber());
         return contact;
     }
@@ -49,7 +49,7 @@ public class TestData {
         Contact contact = new Contact();
         Faker faker = new Faker();
         contact.setType(ContactType.PHONE);
-        contact.setValue(faker.phoneNumber().phoneNumber());
+        contact.setTypeValue(faker.phoneNumber().phoneNumber());
         contact.setId(faker.number().randomNumber());
         return contact;
     }

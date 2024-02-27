@@ -8,10 +8,10 @@ CREATE TABLE clients (
 );
 
 CREATE TABLE contacts (
-  id BIGSERIAL PRIMARY KEY,
-  type VARCHAR(20),
-  value VARCHAR(80),
-  client_id BIGSERIAL NOT NULL,
-  FOREIGN KEY (client_id) REFERENCES clients(id),
-  CONSTRAINT idx_unique_contact_per_client_value UNIQUE (client_id, value)
+    id BIGSERIAL PRIMARY KEY,
+    type VARCHAR(20),
+    type_value VARCHAR(80),
+    client_id BIGSERIAL NOT NULL,
+    FOREIGN KEY (client_id) REFERENCES clients(id),
+    CONSTRAINT idx_unique_contact_per_type_value UNIQUE (client_id, type_value)
 );

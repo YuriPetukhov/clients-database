@@ -37,7 +37,7 @@ public class ContactServiceImpl implements ContactService {
         Contact newContact = new Contact();
         newContact.setClient(clientOpt.get());
         newContact.setType(type);
-        newContact.setValue(value);
+        newContact.setTypeValue(value);
         contactRepository.save(newContact);
     }
 

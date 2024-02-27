@@ -24,6 +24,7 @@ public class Contact {
     @Enumerated(EnumType.STRING)
     private ContactType type;
 
-    private String value;
+    @JoinColumn(name = "type_value")
+    private String typeValue;
 
 }

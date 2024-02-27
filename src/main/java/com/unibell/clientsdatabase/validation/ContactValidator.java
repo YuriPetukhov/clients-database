@@ -20,9 +20,9 @@ public class ContactValidator implements ConstraintValidator<ValidContact, Conta
         }
 
         if (contact.getType() == ContactType.EMAIL) {
-            return isValidEmail(contact.getValue());
+            return isValidEmail(contact.getTypeValue());
         } else if (contact.getType() == ContactType.PHONE) {
-            return isValidPhoneNumber(contact.getValue());
+            return isValidPhoneNumber(contact.getTypeValue());
         }
 
         return false;

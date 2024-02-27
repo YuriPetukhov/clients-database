@@ -63,7 +63,7 @@ class ClientServiceImplTest {
 
     @Test
     @DisplayName("Test adding a new client - successful")
-    void addNewClient() {
+    void testAddNewClient() {
         Client client = new Client();
 
         when(clientMapper.toEntityClient(clientDTO)).thenReturn(client);
@@ -76,7 +76,7 @@ class ClientServiceImplTest {
 
     @Test
     @DisplayName("Test adding a new client - unsuccessful")
-    void addNewClientUnsuccessful() {
+    void testAddNewClientUnsuccessful() {
         ClientDTO clientDTO = new ClientDTO();
         clientDTO.setName("");
         clientService.addNewClient(clientDTO);
@@ -86,7 +86,7 @@ class ClientServiceImplTest {
 
     @Test
     @DisplayName("Test getting client info - successful")
-    void getClientInfo() {
+    void testGetClientInfo() {
 
         Client client = new Client();
         client.setName(clientInfo1.getName());
@@ -102,7 +102,7 @@ class ClientServiceImplTest {
 
     @Test
     @DisplayName("Test getting client info - unsuccessful")
-    void getClientInfoUnsuccessful() {
+    void testGetClientInfoUnsuccessful() {
         when(clientRepository.findById(1L)).thenReturn(Optional.empty());
 
         assertThrows(ClientNotFoundException.class, () -> clientService.getClientInfo(1L));
@@ -110,7 +110,7 @@ class ClientServiceImplTest {
 
     @Test
     @DisplayName("Test getting clients - successful")
-    void getClients() {
+    void testGetClients() {
         Client client1 = new Client();
         client1.setName(clientInfo1.getName());
         client1.setId(clientInfo1.getId());
@@ -136,8 +136,8 @@ class ClientServiceImplTest {
     }
 
     @Test
-    @DisplayName("Test getting clients with empty database")
-    void testGetClientsEmptyDatabase() {
+    @DisplayName("Test getting clients - empty list")
+    void testGetClientsEmptyList() {
         List<Client> emptyList = Collections.emptyList();
         Page<Client> emptyPage = new PageImpl<>(emptyList);
 

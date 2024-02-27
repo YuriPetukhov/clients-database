@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class ClientContactByType {
-    private String value;
+    private String typeValue;
 }

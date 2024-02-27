@@ -71,7 +71,7 @@ class ContactServiceImplTest {
 
     @Test
     @DisplayName("Test adding a new contact - unsuccessful")
-    void testAddNewContact_unsuccessful() {
+    void testAddNewContactUnsuccessful() {
         when(clientService.findClientById(client.getId())).thenReturn(Optional.empty());
 
         assertThrows(ClientNotFoundException.class, () -> contactService.addNewContact(
@@ -94,7 +94,7 @@ class ContactServiceImplTest {
 
     @Test
     @DisplayName("Test getting of client's contact - empty list")
-    void testGetClientContacts_EmptyList() {
+    void testGetClientContactsEmptyList() {
         when(contactRepository.findAllByClientId(client.getId())).thenReturn(new ArrayList<>());
 
         List<ClientContact> clientContacts = contactService.getClientContacts(client.getId());
@@ -117,7 +117,7 @@ class ContactServiceImplTest {
 
     @Test
     @DisplayName("Test getting of client's contacts by type - empty list")
-    void testGetClientContactsByType_EmptyList() {
+    void testGetClientContactsByTypeEmptyList() {
         when(contactRepository.findAllByClientIdAndType(client.getId(), email.getType())).thenReturn(new ArrayList<>());
 
         List<ClientContactByType> clientContactsByType = contactService.getClientContacts(client.getId(), email.getType());

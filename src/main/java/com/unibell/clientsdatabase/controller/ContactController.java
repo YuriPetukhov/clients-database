@@ -15,14 +15,26 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for managing contacts.
+ */
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping(value = "/clients")
 @Tag(name = "Contacts")
 public class ContactController {
+
     private final ContactService contactService;
 
+    /**
+     * Adds a new contact to a client.
+     *
+     * @param clientId the client ID
+     * @param type the type of contact (EMAIL or PHONE)
+     * @param value the value of the contact (email address or phone number)
+     * @return a response entity with status code 200 (OK)
+     */
     @PostMapping("/{clientId}/contact")
     @Operation(summary = "Add a new contact")
     public ResponseEntity<Void> addContactToClient(
@@ -36,6 +48,12 @@ public class ContactController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    /**
+     * Gets all contacts for a client.
+     *
+     * @param clientId the client ID
+     * @return a response entity with status code 200 (OK) and the list of contacts
+     */
     @GetMapping("{clientId}/contact")
     @Operation(summary = "Get client's contacts")
     public ResponseEntity<List<ClientContact>> getClientContacts(
@@ -43,6 +61,13 @@ public class ContactController {
         return ResponseEntity.ok(contactService.getClientContacts(clientId));
     }
 
+    /**
+     * Gets all contacts for a client by type.
+     *
+     * @param clientId the client ID
+     * @param type the type of contact (EMAIL or PHONE)
+     * @return a response entity with status code 200 (OK) and the list of contacts
+     */
     @GetMapping("{clientId}/contacts")
     @Operation(summary = "Get client's contacts by type")
     public ResponseEntity<List<ClientContactByType>> getClientContactsByType(

@@ -13,14 +13,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * REST controller for managing clients.
+ */
 @RestController
 @Slf4j
 @RequiredArgsConstructor
 @RequestMapping(value = "/clients")
 @Tag(name = "Clients")
 public class ClientController {
+
     private final ClientService clientService;
 
+    /**
+     * Adds a new client.
+     *
+     * @param dto the client data transfer object
+     * @return a response entity with status code 201 (Created)
+     */
     @PostMapping
     @Operation(summary = "Add a new client")
     public ResponseEntity<Void> addNewClient(@RequestBody ClientDTO dto) {
@@ -28,12 +38,25 @@ public class ClientController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /**
+     * Gets the client's info.
+     *
+     * @param clientId the client ID
+     * @return a response entity with status code 200 (OK) and the client's info
+     */
     @GetMapping("{clientId}")
     @Operation(summary = "Get client's info")
     public ResponseEntity<ClientInfo> getClientInfo(@PathVariable Long clientId) {
         return ResponseEntity.ok(clientService.getClientInfo(clientId));
     }
 
+    /**
+     * Gets all clients.
+     *
+     * @param pageNumber the page number
+     * @param pageSize the page size
+     * @return a response entity with status code 200 (OK) and the list of clients
+     */
     @GetMapping
     @Operation(summary = "Get all clients")
     public ResponseEntity<List<ClientInfo>> getClients(

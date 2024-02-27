@@ -18,14 +18,26 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service implementation for managing contacts.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ContactServiceImpl implements ContactService {
+
     private final ContactRepository contactRepository;
     private final ClientService clientService;
     private final ContactMapper contactMapper;
 
+    /**
+     * Adds a new contact to a client.
+     *
+     * @param clientId the client ID
+     * @param type the type of contact (EMAIL or PHONE)
+     * @param value the value of the contact (email address or phone number)
+     * @throws ClientNotFoundException if the client is not found
+     */
     @Override
     public void addNewContact(Long clientId, ContactType type, String value) {
         Optional<Client> clientOpt = clientService.findClientById(clientId);
@@ -41,6 +53,12 @@ public class ContactServiceImpl implements ContactService {
         contactRepository.save(newContact);
     }
 
+    /**
+     * Gets all contacts for a client.
+     *
+     * @param clientId the client ID
+     * @return the list of client contacts
+     */
     @Override
     public List<ClientContact> getClientContacts(Long clientId) {
         List<Contact> contacts = contactRepository.findAllByClientId(clientId);
@@ -49,6 +67,13 @@ public class ContactServiceImpl implements ContactService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gets all contacts for a client by type.
+     *
+     * @param clientId the client ID
+     * @param type the type of contact (EMAIL or PHONE)
+     * @return the list of client contacts
+     */
     @Override
     public List<ClientContactByType> getClientContacts(Long clientId, ContactType type) {
         List<Contact> contacts = contactRepository.findAllByClientIdAndType(clientId, type);

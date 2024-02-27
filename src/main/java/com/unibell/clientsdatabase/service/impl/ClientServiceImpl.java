@@ -16,19 +16,35 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+/**
+ * Service implementation for managing clients.
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ClientServiceImpl implements ClientService {
+
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
 
+    /**
+     * Adds a new client.
+     *
+     * @param dto the client data transfer object
+     */
     @Override
     public void addNewClient(ClientDTO dto) {
         log.info("new client {}", dto.getName());
         clientRepository.save(clientMapper.toEntityClient(dto));
     }
 
+    /**
+     * Gets client info by ID.
+     *
+     * @param id the client ID
+     * @return the client info data transfer object
+     * @throws ClientNotFoundException if the client is not found
+     */
     @Override
     public ClientInfo getClientInfo(Long id) {
         Optional<Client> clientOpt = clientRepository.findById(id);
@@ -39,6 +55,13 @@ public class ClientServiceImpl implements ClientService {
         }
     }
 
+    /**
+     * Gets all clients.
+     *
+     * @param pageNumber the page number
+     * @param pageSize the page size
+     * @return the list of client info data transfer objects
+     */
     @Override
     public List<ClientInfo> getClients(Integer pageNumber, Integer pageSize) {
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
@@ -48,6 +71,12 @@ public class ClientServiceImpl implements ClientService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Finds a client by ID.
+     *
+     * @param clientId the client ID
+     * @return the optional client
+     */
     @Override
     public Optional<Client> findClientById(Long clientId) {
         return clientRepository.findById(clientId);

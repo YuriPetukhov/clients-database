@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ import java.util.List;
  * REST controller for managing contacts.
  */
 @RestController
-@Slf4j
 @RequiredArgsConstructor
 @RequestMapping(value = "/clients")
 @Tag(name = "Contacts")
@@ -42,7 +40,7 @@ public class ContactController {
             @ApiParam(value = "Type of contact: EMAIL or PHONE", example = "EMAIL")
             @RequestParam ContactType type,
             @ApiParam(value = "Value of the contact", example = "example@example.com or +7(901) 234-56-78", defaultValue = "example@example.com")
-            @RequestParam String value) {
+            @RequestParam  String value) {
 
         contactService.addNewContact(clientId, type, value);
         return ResponseEntity.status(HttpStatus.OK).build();

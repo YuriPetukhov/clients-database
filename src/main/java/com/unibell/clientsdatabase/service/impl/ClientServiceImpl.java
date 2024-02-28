@@ -47,6 +47,7 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     public ClientInfo getClientInfo(Long id) {
+        log.info("information about client id {}", id);
         Optional<Client> clientOpt = clientRepository.findById(id);
         if (clientOpt.isPresent()) {
             return clientMapper.toDtoClientInfo(clientOpt.get());
@@ -64,6 +65,7 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     public List<ClientInfo> getClients(Integer pageNumber, Integer pageSize) {
+        log.info("list of clients");
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         List<Client> clients = clientRepository.findAll(pageRequest).getContent();
         return clients.stream()
@@ -79,6 +81,7 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     public Optional<Client> findClientById(Long clientId) {
+        log.info("try to find client by id {}", clientId);
         return clientRepository.findById(clientId);
     }
 }

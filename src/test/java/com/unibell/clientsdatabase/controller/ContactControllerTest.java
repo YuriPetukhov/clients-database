@@ -6,7 +6,6 @@ import com.unibell.clientsdatabase.entity.Client;
 import com.unibell.clientsdatabase.repository.ClientRepository;
 import com.unibell.clientsdatabase.repository.ContactRepository;
 import com.unibell.clientsdatabase.testData.TestData;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import static org.junit.jupiter.api.Assertions.*;
-@Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ContactControllerTest {

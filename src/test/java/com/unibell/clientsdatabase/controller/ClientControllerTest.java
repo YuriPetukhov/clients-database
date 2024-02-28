@@ -5,7 +5,6 @@ import com.unibell.clientsdatabase.dto.ClientInfo;
 import com.unibell.clientsdatabase.entity.Client;
 import com.unibell.clientsdatabase.repository.ClientRepository;
 import com.unibell.clientsdatabase.testData.TestData;
-import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
 import org.opentest4j.AssertionFailedError;
@@ -24,7 +23,6 @@ import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@Slf4j
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ActiveProfiles("test")

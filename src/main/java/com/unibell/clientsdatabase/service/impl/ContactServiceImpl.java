@@ -40,6 +40,7 @@ public class ContactServiceImpl implements ContactService {
      */
     @Override
     public void addNewContact(Long clientId, ContactType type, String value) {
+        log.info("new contact for client id {}", clientId);
         Optional<Client> clientOpt = clientService.findClientById(clientId);
 
         if (clientOpt.isEmpty()) {
@@ -61,6 +62,7 @@ public class ContactServiceImpl implements ContactService {
      */
     @Override
     public List<ClientContact> getClientContacts(Long clientId) {
+        log.info("list of contacts for client {}", clientId);
         List<Contact> contacts = contactRepository.findAllByClientId(clientId);
         return contacts.stream()
                 .map(contactMapper::toDtoClientContact)
@@ -76,6 +78,7 @@ public class ContactServiceImpl implements ContactService {
      */
     @Override
     public List<ClientContactByType> getClientContacts(Long clientId, ContactType type) {
+        log.info("list of contacts for client {} by type {}", clientId, type);
         List<Contact> contacts = contactRepository.findAllByClientIdAndType(clientId, type);
         return contacts.stream()
                 .map(contactMapper::toDtoClientContactByType)
